@@ -1,7 +1,6 @@
 package main
 
 import (
-	"XDCore/src/model"
 	"log"
 	"os"
 	"time"
@@ -10,6 +9,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
+
+	"XDCore/src/model"
 )
 
 func main() {

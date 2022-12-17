@@ -1,0 +1,5 @@
+database:
+  user: 'root'
+  password: 'openGauss_123'
+  ip: '60.205.227.224'
+  name: 'CY2212_DMCore'

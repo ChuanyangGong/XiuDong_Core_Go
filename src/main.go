@@ -13,8 +13,11 @@ func main() {
 	// 1. 初始化 logger
 	initial.InitLogger()
 
-	// 2. 初始化 routers
-	router := initial.InitialRouters()
+	// 2. 初始化配置文件读取
+	initial.InitConfig()
+
+	// 3. 初始化 routers
+	router := initial.InitRouters()
 
 	// 启动
 	zap.S().Infof("启动服务器, 端口： %d", port)
