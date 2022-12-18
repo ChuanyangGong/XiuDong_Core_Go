@@ -1,9 +1,9 @@
 package initial
 
 import (
-	"XDCore/src/router"
-
 	"github.com/gin-gonic/gin"
+
+	"XDCore/src/router"
 )
 
 func InitRouters() *gin.Engine {
