@@ -12,4 +12,5 @@ type DatabaseConfig struct {
 
 type ServerConfig struct {
 	DatabaseCfg DatabaseConfig `mapstructure:"database"`
+	Port        int            `mapstructure:"port"`
 }

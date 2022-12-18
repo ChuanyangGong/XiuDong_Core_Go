@@ -1,3 +1,4 @@
+port: 8021
 database:
   user: 'root'
   password: 'openGauss_123'
