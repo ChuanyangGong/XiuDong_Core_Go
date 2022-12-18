@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/anaskhan96/go-password-encoder"
+	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
@@ -48,6 +49,7 @@ func GetUserByMobile(mobile string) (*model.User, error) {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
 	if result.Error != nil {
+		zap.S().Fatalf("mobile(%s) 查询用户出错：%v", mobile, result.Error)
 		return nil, result.Error
 	}
 
@@ -62,6 +64,7 @@ func GetUserById(id int) (*model.User, error) {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
 	if result.Error != nil {
+		zap.S().Fatalf("id(%d) 查询用户出错：%v", id, result.Error)
 		return nil, result.Error
 	}
 

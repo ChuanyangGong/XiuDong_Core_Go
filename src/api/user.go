@@ -84,4 +84,26 @@ func PasswordLogin(ctx *gin.Context) {
 		}
 		return
 	}
+
+	// 获取用户
+	user, err := service.GetUserByMobile(pwdLoginForm.Mobile)
+	if err != nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"msg":     "用户名或密码错误",
+		})
+		return
+	}
+	ok, _ := service.CheckPassword(pwdLoginForm.Password, user.Password)
+	if ok {
+		ctx.JSON(http.StatusOK, gin.H{
+			"success": ok,
+			"msg":     "登录成功",
+		})
+	} else {
+		ctx.JSON(http.StatusOK, gin.H{
+			"success": ok,
+			"msg":     "用户名或密码错误",
+		})
+	}
 }
