@@ -13,5 +13,6 @@ func InitUserRouter(router *gin.RouterGroup) {
 	zap.S().Info("初始化 user 相关 router")
 	{
 		userRouter.GET("list", api.GetUserList)
+		userRouter.POST("login", api.PasswordLogin)
 	}
 }
