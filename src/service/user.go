@@ -3,7 +3,11 @@ package service
 import (
 	"XDCore/src/global"
 	"XDCore/src/model"
+	"strings"
 
+	"github.com/anaskhan96/go-password-encoder"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 )
 
@@ -34,6 +38,59 @@ func GetUserListService(pageInfo *PageInfo) (*UserListRes, error) {
 	rsp.Users = &users
 
 	return rsp, nil
+}
+
+// 通过 mobile 查询用户
+func GetUserByMobile(mobile string) (*model.User, error) {
+	var user model.User
+	result := global.DB.Where(&model.User{Mobile: mobile}).First(&user)
+	if result.RowsAffected == 0 {
+		return nil, status.Errorf(codes.NotFound, "用户不存在")
+	}
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &user, nil
+}
+
+// 通过 id 查询用户
+func GetUserById(id int) (*model.User, error) {
+	var user model.User
+	result := global.DB.First(&user, id)
+	if result.RowsAffected == 0 {
+		return nil, status.Errorf(codes.NotFound, "用户不存在")
+	}
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &user, nil
+}
+
+// 创建用户
+func CreateUser(user *model.User) (*model.User, error) {
+	result := global.DB.Where(&model.User{Mobile: user.Mobile}).First(&user)
+	if result.RowsAffected == 1 {
+		return nil, status.Errorf(codes.AlreadyExists, "用户已存在")
+	}
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	result = global.DB.Create(user)
+	if result.Error != nil {
+		return nil, status.Errorf(codes.Internal, result.Error.Error())
+	}
+
+	return user, nil
+}
+
+// 检查密码是否正确
+func CheckPassword(pwd string, encryptedPwd string) (bool, error) {
+	passwdInfo := strings.Split(encryptedPwd, "$")
+	check := password.Verify(pwd, passwdInfo[2], passwdInfo[3], global.PwdOption)
+	return check, nil
 }
 
 // 构造分页器
