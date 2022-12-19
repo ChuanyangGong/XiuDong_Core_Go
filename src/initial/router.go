@@ -3,13 +3,15 @@ package initial
 import (
 	"github.com/gin-gonic/gin"
 
+	"XDCore/src/middlewares"
 	"XDCore/src/router"
 )
 
 func InitRouters() *gin.Engine {
 	Router := gin.Default()
-	apiGroup := Router.Group("/api")
+	Router.Use(middlewares.Cors())
 
+	apiGroup := Router.Group("/api")
 	router.InitUserRouter(apiGroup)
 
 	return Router

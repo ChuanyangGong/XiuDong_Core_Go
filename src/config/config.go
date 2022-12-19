@@ -9,8 +9,13 @@ type DatabaseConfig struct {
 }
 
 // 服务器配置
-
 type ServerConfig struct {
 	DatabaseCfg DatabaseConfig `mapstructure:"database"`
 	Port        int            `mapstructure:"port"`
+	JwtConfig   JWTConfig      `mapstructure:"jwtConfig"`
+}
+
+// jwt config
+type JWTConfig struct {
+	SigningKey string `mapstructure:"signingKey"`
 }

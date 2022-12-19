@@ -1,11 +1,12 @@
 package main
 
 import (
-	"XDCore/src/global"
-	"XDCore/src/initial"
 	"fmt"
 
 	"go.uber.org/zap"
+
+	"XDCore/src/global"
+	"XDCore/src/initial"
 )
 
 func main() {

@@ -4,3 +4,5 @@ database:
   password: 'openGauss_123'
   ip: '60.205.227.224'
   name: 'CY2212_DMCore'
+jwtConfig:
+  signingKey: "7!r#hYVo6gtHu&3&uGY81PzFMHxp2IaO"

@@ -5,12 +5,15 @@ import (
 	"XDCore/src/global"
 	"XDCore/src/global/request"
 	"XDCore/src/global/response"
+	"XDCore/src/middlewares"
 	"XDCore/src/model"
 	"XDCore/src/service"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator"
 	"go.uber.org/zap"
@@ -42,6 +45,11 @@ func GetUserList(ctx *gin.Context) {
 		Page:     uint32(page),
 		PageSize: uint32(pageSize),
 	}
+
+	claims, _ := ctx.Get("claims")
+	currentUser := claims.(*model.JwtClaims)
+	zap.S().Infof("用户 %d 调用获取用户列表 page: %d, pageSize: %d",
+		currentUser.ID, page, pageSize)
 
 	usrListRes, err := service.GetUserListService(&service.PageInfo{
 		Page:     req.Page,
@@ -96,9 +104,33 @@ func PasswordLogin(ctx *gin.Context) {
 	}
 	ok, _ := service.CheckPassword(pwdLoginForm.Password, user.Password)
 	if ok {
+		// 生成 token
+		j := middlewares.NewJWT()
+		claims := model.JwtClaims{
+			ID:       uint(user.ID),
+			Nickname: user.Nickname,
+			Mobile:   user.Mobile,
+			StandardClaims: jwt.StandardClaims{
+				NotBefore: time.Now().Unix(),
+				ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+				Issuer:    "XIUDONG_Core",
+			},
+		}
+		token, err := j.CreateToken(claims)
+		if err != nil {
+			zap.S().Errorf("token 生成失败：%v", err)
+			ctx.JSON(http.StatusInternalServerError, gin.H{
+				"msg": "token 生成失败",
+			})
+			return
+		}
+
 		ctx.JSON(http.StatusOK, gin.H{
 			"success": ok,
-			"msg":     "登录成功",
+			"data": map[string]string{
+				"token": token,
+			},
+			"msg": "登录成功",
 		})
 	} else {
 		ctx.JSON(http.StatusOK, gin.H{
