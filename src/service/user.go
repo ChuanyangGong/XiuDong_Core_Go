@@ -1,8 +1,6 @@
 package service
 
 import (
-	"XDCore/src/global"
-	"XDCore/src/model"
 	"strings"
 
 	"github.com/anaskhan96/go-password-encoder"
@@ -10,6 +8,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
+
+	"XDCore/src/global"
+	"XDCore/src/model"
 )
 
 // 函数传参

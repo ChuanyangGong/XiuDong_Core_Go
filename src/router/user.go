@@ -1,11 +1,11 @@
 package router
 
 import (
-	"XDCore/src/api"
-	"XDCore/src/middlewares"
-
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+
+	"XDCore/src/api"
+	"XDCore/src/middlewares"
 )
 
 func InitUserRouter(router *gin.RouterGroup) {

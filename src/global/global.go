@@ -1,12 +1,13 @@
 package global
 
 import (
-	"XDCore/src/config"
 	"crypto/sha512"
 
 	"github.com/anaskhan96/go-password-encoder"
 	ut "github.com/go-playground/universal-translator"
 	"gorm.io/gorm"
+
+	"XDCore/src/config"
 )
 
 var (

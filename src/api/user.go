@@ -1,13 +1,6 @@
 package api
 
 import (
-	"XDCore/src/forms"
-	"XDCore/src/global"
-	"XDCore/src/global/request"
-	"XDCore/src/global/response"
-	"XDCore/src/middlewares"
-	"XDCore/src/model"
-	"XDCore/src/service"
 	"net/http"
 	"strconv"
 	"strings"
@@ -17,6 +10,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator"
 	"go.uber.org/zap"
+
+	"XDCore/src/forms"
+	"XDCore/src/global"
+	"XDCore/src/global/request"
+	"XDCore/src/global/response"
+	"XDCore/src/middlewares"
+	"XDCore/src/model"
+	"XDCore/src/service"
 )
 
 func UserModelToInfo(user *model.User) *response.UserInfoRspData {

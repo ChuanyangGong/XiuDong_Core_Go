@@ -1,13 +1,14 @@
 package middlewares
 
 import (
-	"XDCore/src/global"
-	"XDCore/src/model"
 	"errors"
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+
+	"XDCore/src/global"
+	"XDCore/src/model"
 )
 
 func JWTAuth() gin.HandlerFunc {
