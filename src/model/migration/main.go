@@ -56,4 +56,11 @@ func main() {
 		users = append(users, &user)
 	}
 	db.Create(&users)
+
+	// 创建 tag, placement, performance, ticket_file, order 表
+	_ = db.AutoMigrate(&model.Tag{})
+	_ = db.AutoMigrate(&model.Placement{})
+	_ = db.AutoMigrate(&model.Performance{})
+	_ = db.AutoMigrate(&model.TicketFile{})
+	_ = db.AutoMigrate(&model.Order{})
 }
