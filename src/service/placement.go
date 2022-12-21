@@ -48,6 +48,9 @@ func UpdatePlacement(place model.Placement) (*model.Placement, error) {
 		zap.S().Errorf("update placement err:%v", result.Error)
 		return nil, result.Error
 	}
+	if result.RowsAffected == 0 {
+		return nil, fmt.Errorf("不存在该场地")
+	}
 	return &place, nil
 }
 

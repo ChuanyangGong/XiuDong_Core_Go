@@ -94,16 +94,17 @@ func CreateUpdatePlacement(ctx *gin.Context) {
 	}
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"error": err,
+		ctx.JSON(http.StatusOK, response.BaseRsp{
+			Success: false,
+			Msg:     err.Error(),
 		})
+	} else {
+		rsp := &response.BaseRsp{
+			Success: true,
+			Data:    PlacementModelToInfo(rspData),
+		}
+		ctx.JSON(http.StatusOK, rsp)
 	}
-
-	rsp := &response.BaseRsp{
-		Success: true,
-		Data:    PlacementModelToInfo(rspData),
-	}
-	ctx.JSON(http.StatusOK, rsp)
 }
 
 // 删除场地
