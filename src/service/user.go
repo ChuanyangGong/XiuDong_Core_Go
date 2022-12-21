@@ -25,7 +25,7 @@ type UserListRes struct {
 }
 
 // 获取用户列表
-func GetUserListService(pageInfo *PageInfo) (*UserListRes, error) {
+func GetUserList(pageInfo *PageInfo) (*UserListRes, error) {
 	// 获取总用户个数
 	var users []model.User
 	result := global.DB.Find(&users)

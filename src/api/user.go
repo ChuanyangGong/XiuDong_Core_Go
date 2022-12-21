@@ -52,7 +52,7 @@ func GetUserList(ctx *gin.Context) {
 	zap.S().Infof("用户 %d 调用获取用户列表 page: %d, pageSize: %d",
 		currentUser.ID, page, pageSize)
 
-	usrListRes, err := service.GetUserListService(&service.PageInfo{
+	usrListRes, err := service.GetUserList(&service.PageInfo{
 		Page:     req.Page,
 		PageSize: req.PageSize,
 	})
