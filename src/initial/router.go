@@ -15,6 +15,7 @@ func InitRouters() *gin.Engine {
 	router.InitUserRouter(apiGroup)
 	router.InitPlacementRouter(apiGroup)
 	router.InitTagRouter(apiGroup)
+	router.InitPerformanceRouter(apiGroup)
 
 	return Router
 }
