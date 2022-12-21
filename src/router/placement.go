@@ -13,5 +13,8 @@ func InitPlacementRouter(router *gin.RouterGroup) {
 	zap.S().Info("初始化 placement 相关 router")
 	{
 		userRouter.GET("list", api.GetPlacementList)
+		userRouter.POST("", api.CreateUpdatePlacement)
+		userRouter.PUT("", api.CreateUpdatePlacement)
+		userRouter.DELETE(":id", api.DeletePlacement)
 	}
 }

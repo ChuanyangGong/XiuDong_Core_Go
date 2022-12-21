@@ -50,7 +50,7 @@ func GetUserByMobile(mobile string) (*model.User, error) {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
 	if result.Error != nil {
-		zap.S().Fatalf("mobile(%s) 查询用户出错：%v", mobile, result.Error)
+		zap.S().Errorf("mobile(%s) 查询用户出错：%v", mobile, result.Error)
 		return nil, result.Error
 	}
 
@@ -65,7 +65,7 @@ func GetUserById(id int) (*model.User, error) {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
 	if result.Error != nil {
-		zap.S().Fatalf("id(%d) 查询用户出错：%v", id, result.Error)
+		zap.S().Errorf("id(%d) 查询用户出错：%v", id, result.Error)
 		return nil, result.Error
 	}
 
