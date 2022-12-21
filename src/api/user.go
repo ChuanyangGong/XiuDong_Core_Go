@@ -26,6 +26,11 @@ func UserModelToInfo(user *model.User) *response.UserInfoRspData {
 		Mobile:   user.Mobile,
 		Birthday: *user.Birthday,
 		Avatar:   user.Avatar,
+		BaseInfoRsp: response.BaseInfoRsp{
+			ID:        int32(user.ID),
+			CreatedAt: user.CreatedAt,
+			UpdatedAt: user.UpdatedAt,
+		},
 	}
 }
 
@@ -63,17 +68,16 @@ func GetUserList(ctx *gin.Context) {
 	}
 
 	// 构造结果
-	rsp := &response.GetUserListRsp{
-		BaseRsp: response.BaseRsp{
-			Success: true,
-		},
-		Data: response.UserListRspData{
-			Total: int(usrListRes.Total),
-			Users: make([]response.UserInfoRspData, 0),
-		},
+	userListRspData := response.UserListRspData{
+		Total: int(usrListRes.Total),
+		Users: make([]response.UserInfoRspData, 0),
 	}
 	for _, v := range *usrListRes.Users {
-		rsp.Data.Users = append(rsp.Data.Users, *UserModelToInfo(&v))
+		userListRspData.Users = append(userListRspData.Users, *UserModelToInfo(&v))
+	}
+	rsp := &response.BaseRsp{
+		Success: true,
+		Data:    userListRspData,
 	}
 	ctx.JSON(http.StatusOK, rsp)
 }

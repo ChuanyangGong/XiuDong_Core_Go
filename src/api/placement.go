@@ -47,7 +47,7 @@ func GetPlacementList(ctx *gin.Context) {
 	for _, v := range *placementListRes.Placements {
 		placementListRspData.Placements = append(placementListRspData.Placements, *PlacementModelToInfo(&v))
 	}
-	rsp := &response.StandardRsp{
+	rsp := &response.BaseRsp{
 		Success: true,
 		Data:    placementListRspData,
 	}
