@@ -20,5 +20,7 @@ type TicketFile struct {
 	StartSellAt   *time.Time `gorm:"type:datetime comment '开售时间'"`
 	StopSellAt    *time.Time `gorm:"type:datetime comment '停售时间'"`
 	TicketNumber  int        `gorm:"type:int comment '总票数'"`
+	RemainNumber  int        `gorm:"type:int comment '剩余票数'"`
+	Comment       string     `gorm:"type:varchar(20) comment '备注信息'"`
 	PerformanceId uint
 }

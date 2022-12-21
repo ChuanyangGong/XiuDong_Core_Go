@@ -5,6 +5,9 @@
 *.so
 *.dylib
 
+# my ignore
+storage
+
 # Test binary, built with `go test -c`
 *.test
 
