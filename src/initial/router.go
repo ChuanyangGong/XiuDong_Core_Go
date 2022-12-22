@@ -12,11 +12,13 @@ func InitRouters() *gin.Engine {
 	Router.Use(middlewares.Cors())
 
 	apiGroup := Router.Group("/api")
+
 	router.InitUserRouter(apiGroup)
 	router.InitPlacementRouter(apiGroup)
 	router.InitTagRouter(apiGroup)
 	router.InitPerformanceRouter(apiGroup)
 	router.InitGlobalRouter(apiGroup)
+	router.InitTicketFileRouter(apiGroup)
 
 	return Router
 }
